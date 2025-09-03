@@ -53,7 +53,7 @@ describe("transaction history", () => {
             value: -20.25,
             currency_iso: "GBP",
           },
-          formattedAmount: "£-20.25",
+          formattedAmount: "-£20.25",
           formattedDate: "22 June 2022",
         },
       ],
@@ -76,7 +76,7 @@ describe("transaction history", () => {
     });
 
     expect(expensesTable).toBeInTheDocument();
-    expect(screen.getByText("£-20.25")).toBeInTheDocument();
+    expect(screen.getByText("-£20.25")).toBeInTheDocument();
   });
 
   test("changing between the expenses and income tabs should show different transactions", () => {
@@ -91,7 +91,7 @@ describe("transaction history", () => {
             value: -20.25,
             currency_iso: "GBP",
           },
-          formattedAmount: "£-20.25",
+          formattedAmount: "-£20.25",
           formattedDate: "22 June 2022",
         },
       ],
@@ -117,12 +117,12 @@ describe("transaction history", () => {
     expect(expensesTable).toBeInTheDocument();
     expect(incomeTable).not.toBeInTheDocument();
 
-    expect(screen.getByText("£-20.25")).toBeInTheDocument();
+    expect(screen.getByText("-£20.25")).toBeInTheDocument();
 
     fireEvent.focus(incomeTabTrigger)
 
     expect(incomeTabTrigger).toHaveAttribute("data-state", "active")
     expect(expensesTabTrigger).toHaveAttribute("data-state", "inactive");
-    expect(screen.queryByText("£-20.25")).not.toBeInTheDocument();
+    expect(screen.queryByText("-£20.25")).not.toBeInTheDocument();
   });
 });
