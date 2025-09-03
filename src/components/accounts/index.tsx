@@ -1,16 +1,18 @@
 import { AccountItem } from "./item";
 import "./index.css";
-import { accounts } from "../../api/data/accounts";
+import { useFetchAccounts } from "../../hooks/useFetchAccounts";
 
 export const Accounts = () => {
+  const { data } = useFetchAccounts();
+
   return (
-    <>
-      <h1 className="align-left">Your accounts</h1>
+    <section>
+      <h2 className="align-left">Your accounts</h2>
       <div className="accounts">
-        {accounts.map((account) => (
+        {data.map((account) => (
           <AccountItem account={account} key={account.account_id} />
         ))}
       </div>
-    </>
+    </section>
   );
 };

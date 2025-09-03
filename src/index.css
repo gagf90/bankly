@@ -84,10 +84,14 @@ button[data-state="active"] {
   --primary-300: #000000;
 }
 
+button[data-state="inactive"] {
+  border: 1px solid #282834
+}
+
 .align-left {
   text-align: left;
 }
 
-.flow > * + * {
+.flow>*+* {
   margin-top: var(--spacer-medium);
 }

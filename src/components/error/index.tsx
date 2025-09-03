@@ -1,0 +1,1 @@
+export const Error = () => <span role="alert" aria-live="polite">We couldn't load the data. Please try again later.</span>

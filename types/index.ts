@@ -16,7 +16,16 @@ export type Transaction = {
   };
 };
 
+export type FormattedTransaction = Transaction & {
+  formattedAmount: string;
+  formattedDate: string;
+};
+
 export type Account = {
   account_id: string;
   balance: Balance;
+};
+
+export type FormattedAccount = Account & {
+  formattedBalance: string;
 };

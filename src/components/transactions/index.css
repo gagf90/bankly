@@ -32,17 +32,29 @@ table {
 
 td {
   padding: var(--spacer-medium);
+
+  &:last-child {
+    text-align: right;
+  }
 }
 
 th {
-  color: var(--primary-900);
+  color: var(--primary-300);
   border-bottom: 1px solid var(--primary-300);
   padding: var(--spacer-medium);
   text-align: left;
+
+  &:last-child {
+    text-align: right;
+  }
 }
 
 .transaction-detail {
   display: grid;
   grid-template-columns: min-content 1fr;
   gap: var(--spacer-medium);
+}
+
+.transaction-category {
+  color: var(--primary-300);
 }

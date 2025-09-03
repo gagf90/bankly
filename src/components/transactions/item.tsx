@@ -1,8 +1,8 @@
-import type { Transaction as TransactionType } from "../../../types";
+import type { FormattedTransaction } from "../../../types";
 import { Avatar } from "./avatar";
 
 type Props = {
-  transaction: TransactionType;
+  transaction: FormattedTransaction;
 };
 
 export const Transaction = ({ transaction }: Props) => (
@@ -17,10 +17,10 @@ export const Transaction = ({ transaction }: Props) => (
       </div>
     </td>
     <td>
-      <div>{transaction.date}</div>
+      <div>{transaction.formattedDate}</div>
     </td>
     <td className="transaction-amount">
-      <div className="amount">{transaction.amount.value}</div>
+      <div className="amount">{transaction.formattedAmount}</div>
     </td>
   </tr>
 );

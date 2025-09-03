@@ -1,13 +1,15 @@
 import * as Tabs from "@radix-ui/react-tabs";
-import { Transaction as TransactionType } from "../../../types";
-import { transactions } from "../../api/data/transactions";
+import { FormattedTransaction } from "../../../types";
 import "./index.css";
 import { Transaction } from "./item";
+import { useFetchTransactions } from "../../hooks/useFetchTransactions";
+import { Loading } from "../loading";
+import { Error } from "../error";
 
-const isExpense = (transaction: TransactionType) => transaction.amount.value < 0;
-const isIncome = (transaction: TransactionType) => transaction.amount.value > 0;
+const isExpense = (transaction: FormattedTransaction) => transaction.amount.value < 0;
+const isIncome = (transaction: FormattedTransaction) => transaction.amount.value > 0;
 
-const Expenses = () => {
+const Expenses = ({ data }: { data: FormattedTransaction[] }) => {
   return (
     <table aria-label="Expenses">
       <thead>
@@ -18,7 +20,7 @@ const Expenses = () => {
         </tr>
       </thead>
       <tbody>
-        {transactions.filter(isExpense).map((transaction) => (
+        {data.filter(isExpense).map((transaction: FormattedTransaction) => (
           <Transaction transaction={transaction} key={transaction.id} />
         ))}
       </tbody>
@@ -26,7 +28,7 @@ const Expenses = () => {
   );
 };
 
-const Income = () => {
+const Income = ({ data }: { data: FormattedTransaction[] }) => {
   return (
     <table aria-label="Income">
       <thead>
@@ -37,7 +39,7 @@ const Income = () => {
         </tr>
       </thead>
       <tbody>
-        {transactions.filter(isIncome).map((transaction) => (
+        {data.filter(isIncome).map((transaction: FormattedTransaction) => (
           <Transaction transaction={transaction} key={transaction.id} />
         ))}
       </tbody>
@@ -46,22 +48,29 @@ const Income = () => {
 };
 
 export const TransactionHistory = () => {
+  const { data, isLoading, error } = useFetchTransactions();
+
   return (
-    <>
-      <h1 className="align-left">Transaction History</h1>
-      <Tabs.Root defaultValue="expenses" className="flow">
+    <section>
+      <h2 className="align-left">Transaction history</h2>
+
+      {isLoading && <Loading />}
+
+      {error && <Error />}
+
+      {!isLoading && !error && <Tabs.Root defaultValue="expenses" className="flow">
         <Tabs.List className="tabs__list" aria-label="Filter your transactions">
           <Tabs.Trigger value="expenses">Expenses</Tabs.Trigger>
           <Tabs.Trigger value="income">Income</Tabs.Trigger>
         </Tabs.List>
 
         <Tabs.Content className="TabsContent" value="expenses">
-          <Expenses />
+          <Expenses data={data} />
         </Tabs.Content>
         <Tabs.Content className="TabsContent" value="income">
-          <Income />
+          <Income data={data} />
         </Tabs.Content>
-      </Tabs.Root>
-    </>
+      </Tabs.Root>}
+    </section>
   );
 };
